@@ -36,4 +36,10 @@ RSpec.describe 'Bulk Discount index page' do
     #   expect(current_path).to eq(merchant_bulk_discount_path(@merchant, discount))
     # end
   end
+
+  it 'I a header of Upcoming Holidays with the name and date of the next 3 upcoming US holidays' do
+    expect(page).to have_content('Upcoming Holidays')
+    expect(page).to have_content('Holiday Name', count: 3)
+    expect(page).to have_content('1-1-11', count: 3)
+  end
 end

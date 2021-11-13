@@ -12,8 +12,8 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true)
+# require 'webmock/rspec'
+# WebMock.disable_net_connect!(allow_localhost: true)
 
 require 'simplecov'
 SimpleCov.start do
@@ -26,6 +26,9 @@ RSpec.configure do |config|
     allow(GithubService).to receive(:name_info).and_return('little-esty-shop-mocked')
     allow(GithubService).to receive(:contributors_commits).and_return(['user1 with 10 commits.', 'user2 with 20 commits.', 'user3 with 30 commits.'])
     allow(GithubService).to receive(:pr_count).and_return(12)
+
+    allow_any_instance_of(Holiday).to receive(:name).and_return('Holiday Name')
+    allow_any_instance_of(Holiday).to receive(:date).and_return('1-1-11')
   end
   #   stub_request(:get, /api.github.com/).
   #     with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
