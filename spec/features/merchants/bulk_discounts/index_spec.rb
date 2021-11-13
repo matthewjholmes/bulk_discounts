@@ -42,4 +42,11 @@ RSpec.describe 'Bulk Discount index page' do
     expect(page).to have_content('Holiday Name', count: 3)
     expect(page).to have_content('1-1-11', count: 3)
   end
+
+  it 'i see a link to create a new discount' do
+    click_link 'Create New Discount'
+
+    expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant))
+  end
+
 end
