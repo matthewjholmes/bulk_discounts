@@ -15,16 +15,25 @@ RSpec.describe 'Bulk Discount index page' do
     expect(current_path).to eq(merchant_bulk_discounts_path(@merchant))
   end
 
-  it 'i see all my discoutns with attributes and each one is a link to show' do
-    BulkDiscount.all.each do |discount|
-      within("#discount-#{discount.id}") do
-        expect(page).to have_content(discount.id)
-        expect(page).to have_content(discount.percentage_discount)
-        expect(page).to have_content(discount.quantity_threshold)
+  it 'i see all my discounts with attributes and each one is a link to show' do
+    within("#discount-#{@discount1.id}") do
+      expect(page).to have_content(@discount1.id)
+      expect(page).to have_content(@discount1.percentage_discount)
+      expect(page).to have_content(@discount1.quantity_threshold)
 
-        click_link "Details"
-      end
-      expect(current_path).to eq(merchant_bulk_discount_path(@merchant, discount))
+      click_link "Details"
     end
+
+    expect(current_path).to eq(merchant_bulk_discount_path(@merchant, @discount1))
+    # BulkDiscount.all.each do |discount|
+    #   within("#discount-#{discount.id}") do
+    #     expect(page).to have_content(discount.id)
+    #     expect(page).to have_content(discount.percentage_discount)
+    #     expect(page).to have_content(discount.quantity_threshold)
+    #
+    #     click_link "Details"
+    #   end
+    #   expect(current_path).to eq(merchant_bulk_discount_path(@merchant, discount))
+    # end
   end
 end
