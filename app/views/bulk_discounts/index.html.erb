@@ -12,5 +12,7 @@
 <h3>Upcoming Holidays</h3>
 <% @upcoming_holidays.each do |holiday| %>
   Holiday: <%= holiday.name %>
-  Date: <%= holiday.date %>
+  Date: <%= holiday.date %><br>
 <% end %>
+
+<h5><%= link_to 'Create New Discount', new_merchant_bulk_discount_path(@merchant) %></h5>
