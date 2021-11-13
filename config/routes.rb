@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :merchants, only: :index do
     get '/dashboard', controller: :merchants, action: :show, as: 'dashboard'
-    resources :bulk_discounts, only: [:index]
+    resources :bulk_discounts, only: [:index, :show]
     resources :items, except: [:delete]
     resources :invoices, only: [:index, :show]
     resources :invoice_items, only: :update
