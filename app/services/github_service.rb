@@ -1,7 +1,5 @@
 class GithubService
   class << self
-
-
     TURING_STAFF = %w(BrianZanti timomitchel scottalexandra jamisonordway)
 
     def initialize
