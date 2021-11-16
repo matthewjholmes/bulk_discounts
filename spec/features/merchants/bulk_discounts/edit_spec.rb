@@ -24,4 +24,11 @@ RSpec.describe 'Discount edit form' do
     expect(current_path).to eq(merchant_bulk_discount_path(@merchant, @discount))
     expect(page).to have_content(50)
   end
+
+  it 'handles incorrect input' do
+    fill_in :bulk_discount_percentage_discount, with: ''
+    click_button 'Update Bulk discount'
+
+    expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant, @discount))
+  end
 end

@@ -2,8 +2,9 @@ Invoice id: <%= @invoice.id %><br>
 Invoice status: <%= @invoice.status %><br>
 Invoice created at: <%= @invoice.created_at.strftime('%A, %B %e, %Y') %><br>
 Invoice customer name: <%= @invoice.customer.full_name %><br>
-Invoice total revenue: <%= number_to_currency(@invoice.total_invoice_revenue(@invoice.id).fdiv(100)) %><br>
-Inovice items:
+Invoice Total Revenue: <%= number_to_currency(@invoice.total_undiscounted_invoice_revenue.fdiv(100)) %><br>
+Revenue After Discounts: <%= number_to_currency(@invoice.total_discounted_invoice_revenue.fdiv(100)) %><br>
+Invoice items:
 <hr>
 <% @invoice.items.each do |item| %>
   <div id="item-<%= item.id %>">

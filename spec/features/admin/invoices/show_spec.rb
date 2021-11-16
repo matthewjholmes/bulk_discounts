@@ -50,4 +50,9 @@ RSpec.describe "admin invoice show" do
       expect(find_field(:invoice_item_status).value).to eq("shipped")
     end
   end
+
+  it 'lists invoice revenue before and after discounts' do
+    expect(page).to have_content('Invoice Total Revenue')
+    expect(page).to have_content('Revenue After Discounts')
+  end
 end
