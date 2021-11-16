@@ -42,8 +42,12 @@ RSpec.describe 'merchant invoice show page' do
     expect(page).to_not have_content(@item3.name)
   end
 
-  it 'i see total revenue for all of my items on invoice' do
+  it 'i see total revenue for all of my items on invoice revenue' do
     expect(page).to have_content("Total Merchant Revenue for this Invoice")
+  end
+  
+  it 'i see discounted revenue for all of my items on invoice' do
+    expect(page).to have_content("Total Revenue After Discounts")
   end
 
   it 'item status is a select field that shows current status and can change status' do
