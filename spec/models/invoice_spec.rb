@@ -103,6 +103,8 @@ RSpec.describe Invoice, type: :model do
         inv_item2 = create :invoice_item, { item_id: item.id, invoice_id: invoice.id, unit_price: 100, quantity: 10 }
 
 
+        expect(invoice.total_discounted_invoice_revenue_by_merchant(merchant.id)).to eq(1000)
+
         expect(invoice.total_discounted_invoice_revenue).to eq(1000)
       end
     end

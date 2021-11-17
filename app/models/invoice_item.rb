@@ -14,18 +14,34 @@ class InvoiceItem < ApplicationRecord
     self.where(status: ['pending', 'packaged'])
   end
 
+  def revenue
+    unit_price * quantity
+  end
+
   def best_discount
     bulk_discounts.where("bulk_discounts.quantity_threshold <= ?", quantity)
                   .order(percentage_discount: :desc)
                   .first
   end
 
-  def revenue
-    unit_price * quantity
-  end
-
   def discount_percentage
     best_discount.percentage_discount.to_f / 100
+  end
+
+  def discounted_revenue_by_merchant(merchant_id)
+    if best_discount.nil?
+      0
+    else
+      if best_discount.merchant.id == merchant_id
+        if best_discount.nil?
+          revenue
+        else
+          revenue * (1 - discount_percentage)
+        end
+      else
+        0
+      end
+    end
   end
 
   def discounted_revenue
