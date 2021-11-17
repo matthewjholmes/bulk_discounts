@@ -19,6 +19,7 @@ require 'simplecov'
 SimpleCov.start do
   add_filter "spec/"
   add_filter "app/services"
+  add_filter "app/poros"
 end
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

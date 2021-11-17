@@ -67,11 +67,35 @@ RSpec.describe InvoiceItem, type: :model do
       expect(@inv_item6.revenue).to eq(1000)
     end
 
-    it '#discount_amount returns value of the discount on invoice item' do
+    it '#discount_percentage returns value of the discount on invoice item' do
       expect(@inv_item6.discount_percentage).to eq(0.5)
     end
 
-    it '#discount_amount returns value of revenue remaining after discount' do
+    it '#discounted_revenue_by_merchant returns value of revenue remaining after discount for a specific merchant' do
+      local_merchant = create :merchant
+      discount = create :bulk_discount, { quantity_threshold: 100, percentage_discount: 20, merchant: local_merchant }
+      customer = create :customer
+      item = create :item, { merchant_id: local_merchant.id }
+      invoice = create :invoice, { customer_id: customer.id }
+      transaction = create :transaction, { invoice_id: invoice.id }
+      inv_item1 = create :invoice_item, { item_id: item.id, invoice_id: invoice.id, quantity: 10, unit_price: 100 }
+      inv_item2 = create :invoice_item, { item_id: item.id, invoice_id: invoice.id, quantity: 10, unit_price: 100 }
+      inv_item3 = create :invoice_item, { item_id: item.id, invoice_id: invoice.id, quantity: 10, unit_price: 100 }
+
+      expect(@inv_item6.discounted_revenue_by_merchant(@merchant.id)).to eq(500)
+      expect(inv_item1.discounted_revenue_by_merchant(local_merchant.id)).to eq(0)
+    end
+
+    it '#discounted_revenue returns value of revenue remaining after discount' do
+      local_merchant = create :merchant
+      discount = create :bulk_discount, { quantity_threshold: 100, percentage_discount: 20, merchant: local_merchant }
+      customer = create :customer
+      item = create :item, { merchant_id: local_merchant.id }
+      invoice = create :invoice, { customer_id: customer.id }
+      transaction = create :transaction, { invoice_id: invoice.id }
+      inv_item = create :invoice_item, { item_id: item.id, invoice_id: invoice.id, quantity: 10, unit_price: 100 }
+
+      expect(inv_item.discounted_revenue).to eq(1000)
       expect(@inv_item6.discounted_revenue).to eq(500)
     end
   end
